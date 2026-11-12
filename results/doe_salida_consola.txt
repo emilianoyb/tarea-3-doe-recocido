@@ -1,0 +1,51 @@
+r = 0.745723 (semilla = matrícula 2115459)
+  nivel bajo : fracción 0.2237 -> T0 = 23.15
+  nivel medio: fracción 0.5237 -> T0 = 52.85
+  nivel alto : fracción 0.8237 -> T0 = 82.55
+
+90 corridas. Óptimos exactos (Held-Karp): {5: 222.14, 10: 306.81, 15: 311.21}
+
+ANOVA de dos factores (variable: costo)
+                          sum_sq    df          F  PR(>F)
+C(nivel)               319.8776   2.0     5.3541  0.0065
+C(tamano)           218703.1125   2.0  3660.6675  0.0000
+C(nivel):C(tamano)     651.7863   4.0     5.4548  0.0006
+Residual              2419.6341  81.0        NaN     NaN
+
+ANOVA de dos factores (variable: % sobre el óptimo, comprobación de robustez)
+                        sum_sq    df         F  PR(>F)
+C(nivel)              33.0221   2.0    5.3531  0.0066
+C(tamano)           1594.7770   2.0  258.5238  0.0000
+C(nivel):C(tamano)    67.3043   4.0    5.4552  0.0006
+Residual             249.8357  81.0       NaN     NaN
+
+n=5: ANOVA de 1 factor F=nan p=nan -> sin variación: todas las corridas dieron el mismo costo; mejor nivel = bajo (T0=23.1)
+   bajo  T0=  23.1  media   222.14 ±   0.00  mediana boot   222.14  IC95 [222.14, 222.14]  óptimas 100%
+   medio T0=  52.8  media   222.14 ±   0.00  mediana boot   222.14  IC95 [222.14, 222.14]  óptimas 100%
+   alto  T0=  82.5  media   222.14 ±   0.00  mediana boot   222.14  IC95 [222.14, 222.14]  óptimas 100%
+
+n=10: ANOVA de 1 factor F=1.000 p=0.3811 -> NO significativo; mejor nivel = medio (T0=52.8)
+   bajo  T0=  23.1  media   306.92 ±   0.37  mediana boot   306.81  IC95 [306.81, 306.81]  óptimas 90%
+   medio T0=  52.8  media   306.81 ±   0.00  mediana boot   306.81  IC95 [306.81, 306.81]  óptimas 100%
+   alto  T0=  82.5  media   306.81 ±   0.00  mediana boot   306.81  IC95 [306.81, 306.81]  óptimas 100%
+
+Tukey HSD, n = 15
+ Multiple Comparison of Means - Tukey HSD, FWER=0.05 
+=====================================================
+group1 group2 meandiff p-adj   lower    upper  reject
+-----------------------------------------------------
+  alto   bajo -13.0428 0.0126 -23.5369 -2.5487   True
+  alto  medio -10.7817 0.0432 -21.2758 -0.2876   True
+  bajo  medio   2.2611 0.8553   -8.233 12.7552  False
+-----------------------------------------------------
+
+n=15: ANOVA de 1 factor F=5.424 p=0.0105 -> significativo; mejor nivel = bajo (T0=23.1)
+   bajo  T0=  23.1  media   333.92 ±   9.54  mediana boot   334.78  IC95 [330.48, 336.33]  óptimas 0%
+   medio T0=  52.8  media   336.18 ±   9.57  mediana boot   335.96  IC95 [325.73, 345.21]  óptimas 0%
+   alto  T0=  82.5  media   346.96 ±   9.28  mediana boot   348.70  IC95 [337.80, 354.58]  óptimas 0%
+
+Sensibilidad al número de iteraciones (ANOVA de dos factores sobre el costo)
+ iteraciones  p_temperatura  p_interaccion  p_n5 mejor_n5  pct_opt_n5  p_n10 mejor_n10  pct_opt_n10  p_n15 mejor_n15  pct_opt_n15
+         100         0.9297         0.9971   NaN   empate       100.0 0.7485      bajo      43.3333 0.9599      bajo       0.0000
+         300         0.0065         0.0006   NaN   empate       100.0 0.3811     medio      96.6667 0.0105      bajo       0.0000
+        1000         0.0830         0.0442   NaN   empate       100.0    NaN    empate     100.0000 0.0954     medio      33.3333
